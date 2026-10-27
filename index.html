@@ -22,14 +22,19 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
   <link rel="preload" href="assets/logo-poster.webp" as="image" type="image/webp">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Manrope:wght@400..700&display=swap">
+  <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    document.documentElement.classList.add('js');
+    // The hero copy waits for the logo animation; never let it stay hidden longer than 3 s,
+    // even if main.js is slow or fails to load.
+    setTimeout(function () { var h = document.querySelector('.hero'); if (h) h.classList.add('is-revealed'); }, 3000);
+  </script>
 </head>
 <body>
   <div class="progress" aria-hidden="true"></div>
+  <span id="new-tab" hidden>S'ouvre dans un nouvel onglet</span>
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Infinis World's Pictures, accueil">
@@ -39,9 +44,9 @@
     <nav class="nav" aria-label="Navigation principale">
       <a href="#services">Services</a>
       <a href="#contact">Contact</a>
-      <a href="https://www.instagram.com/infinispictures" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.instagram.com/infinispictures" target="_blank" rel="noopener" aria-describedby="new-tab">Instagram</a>
     </nav>
-    <a class="btn btn-gold btn-sm" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20j'aimerais%20r%C3%A9server%20une%20s%C3%A9ance." target="_blank" rel="noopener">
+    <a class="btn btn-gold btn-sm" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20j'aimerais%20r%C3%A9server%20une%20s%C3%A9ance." target="_blank" rel="noopener" aria-describedby="new-tab">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
       Réserver
     </a>
@@ -126,7 +131,7 @@
           <p class="tagline seq">Bienvenus dans notre monde</p>
           <p class="kicker seq">Collation · Studio · Mariage</p>
           <div class="hero-actions seq">
-            <a class="btn btn-gold" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20j'aimerais%20r%C3%A9server%20une%20s%C3%A9ance." target="_blank" rel="noopener">
+            <a class="btn btn-gold" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20j'aimerais%20r%C3%A9server%20une%20s%C3%A9ance." target="_blank" rel="noopener" aria-describedby="new-tab">
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
               Réserver sur WhatsApp
             </a>
@@ -143,7 +148,6 @@
     <section id="services" class="section services" aria-labelledby="services-title">
       <div class="container">
         <div class="section-head rise">
-          <p class="label">Nos services</p>
           <h2 id="services-title">Un moment. Pour toujours.</h2>
         </div>
 
@@ -222,7 +226,7 @@
       <div class="container contact-inner rise">
         <h2 id="contact-title">Réservez votre date.</h2>
         <p class="lead">Un message suffit. Nous vous répondons avec les disponibilités.</p>
-        <a class="btn btn-gold btn-lg" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20j'aimerais%20r%C3%A9server%20une%20s%C3%A9ance." target="_blank" rel="noopener">
+        <a class="btn btn-gold btn-lg" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20j'aimerais%20r%C3%A9server%20une%20s%C3%A9ance." target="_blank" rel="noopener" aria-describedby="new-tab">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
           Écrire sur WhatsApp
         </a>
@@ -240,7 +244,7 @@
             </a>
           </li>
           <li>
-            <a class="pill" href="https://www.instagram.com/infinispictures" target="_blank" rel="noopener">
+            <a class="pill" href="https://www.instagram.com/infinispictures" target="_blank" rel="noopener" aria-describedby="new-tab">
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.3 6.7h.01"/></svg>
               @infinispictures
             </a>
@@ -264,9 +268,8 @@
       <div class="sheet-scroll">
         <div class="sheet-banner is-tall"><img src="assets/photos/grad-collage.webp" width="1179" height="1038" alt="" loading="lazy" decoding="async"></div>
         <div class="sheet-body">
-          <p class="label">Collation & défense</p>
-          <h2 id="sheet-collation-title">Votre grand jour</h2>
-          <p class="sheet-intro">À la faculté, et une heure à domicile en option.</p>
+          <h2 id="sheet-collation-title">Collation &amp; défense</h2>
+          <p class="sheet-intro">Votre grand jour à la faculté, et une heure à domicile en option.</p>
           <p class="pack-price"><small>dès</small> 60 $</p>
           <fieldset class="choices" style="--n: 2">
             <legend class="sr-only">Formule</legend>
@@ -283,7 +286,7 @@
         </div>
       </div>
       <div class="sheet-foot">
-        <a class="btn btn-gold sheet-cta" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20je%20souhaite%20r%C3%A9server%20%3A%20Collation%20%26%20d%C3%A9fense%20(%C3%A0%20la%20facult%C3%A9)." target="_blank" rel="noopener" data-cta>
+        <a class="btn btn-gold sheet-cta" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20je%20souhaite%20r%C3%A9server%20%3A%20Collation%20%26%20d%C3%A9fense%20(%C3%A0%20la%20facult%C3%A9)." target="_blank" rel="noopener" aria-describedby="new-tab" data-cta>
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
           <span data-cta-label>Réserver ma date</span>
         </a>
@@ -300,8 +303,7 @@
       <div class="sheet-scroll">
         <div class="sheet-banner"><img src="assets/photos/studio-02-600.webp" width="451" height="600" alt="" loading="lazy" decoding="async" style="object-position: 50% 25%"></div>
         <div class="sheet-body">
-          <p class="label">Séance studio</p>
-          <h2 id="sheet-studio-title">Votre séance studio</h2>
+          <h2 id="sheet-studio-title">Séance studio</h2>
           <p class="sheet-intro">Portraits solo, en groupe ou au forfait horaire.</p>
           <p class="pack-price"><small>dès</small> 2 $</p>
           <fieldset class="choices" style="--n: 3">
@@ -323,7 +325,7 @@
         </div>
       </div>
       <div class="sheet-foot">
-        <a class="btn btn-gold sheet-cta" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20je%20souhaite%20r%C3%A9server%20%3A%20S%C3%A9ance%20studio%20(solo)." target="_blank" rel="noopener" data-cta>
+        <a class="btn btn-gold sheet-cta" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20je%20souhaite%20r%C3%A9server%20%3A%20S%C3%A9ance%20studio%20(solo)." target="_blank" rel="noopener" aria-describedby="new-tab" data-cta>
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
           <span data-cta-label>Réserver ma séance</span>
         </a>
@@ -340,9 +342,8 @@
       <div class="sheet-scroll">
         <div class="sheet-banner"><img src="assets/photos/wedding-02-600.webp" width="428" height="600" alt="" loading="lazy" decoding="async" style="object-position: 50% 30%"></div>
         <div class="sheet-body">
-          <p class="label">Mariage</p>
-          <h2 id="sheet-mariage-title">Choisissez votre forfait</h2>
-          <p class="sheet-intro">Photo et vidéo, du civil à la soirée dansante.</p>
+          <h2 id="sheet-mariage-title">Mariage</h2>
+          <p class="sheet-intro">Photo et vidéo, du civil à la soirée dansante. Choisissez votre forfait.</p>
           <fieldset class="choices" style="--n: 3">
             <legend class="sr-only">Forfait</legend>
             <label class="choice">
@@ -408,7 +409,7 @@
         </div>
       </div>
       <div class="sheet-foot">
-        <a class="btn btn-gold sheet-cta" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20je%20souhaite%20r%C3%A9server%20%3A%20Mariage%2C%20Forfait%20Essentiel%20(800%20%24)." target="_blank" rel="noopener" data-cta>
+        <a class="btn btn-gold sheet-cta" href="https://wa.me/243991121439?text=Bonjour%20Infinis%20World's%20Pictures%2C%20je%20souhaite%20r%C3%A9server%20%3A%20Mariage%2C%20Forfait%20Essentiel%20(800%20%24)." target="_blank" rel="noopener" aria-describedby="new-tab" data-cta>
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
           <span data-cta-label>Réserver Essentiel</span>
         </a>

@@ -12,7 +12,7 @@
   const reveal = () => {
     if (revealed) return;
     revealed = true;
-    hero.classList.add('is-revealed');
+    hero.classList.add('is-revealed'); // no-op if the inline 3 s fallback already fired
   };
 
   const usePoster = () => {
@@ -41,9 +41,7 @@
 
     const attempt = video.play();
     if (attempt && attempt.catch) attempt.catch(usePoster);
-
-    // Safety net if playback stalls on a slow connection.
-    setTimeout(reveal, 4500);
+    // The 3 s safety reveal lives inline in <head>, so it also covers a failed main.js.
   }
 
   /* ---------- Pause the hero when it's off-screen ---------- */
@@ -56,6 +54,11 @@
       if (visible) video.play().catch(() => {});
       else video.pause();
     }).observe(hero);
+
+    const band = document.querySelector('.band');
+    new IntersectionObserver(([entry]) => {
+      band.classList.toggle('is-offscreen', !entry.isIntersecting);
+    }).observe(band);
   }
 
   /* ---------- Fallback when scroll-driven animations aren't supported ---------- */

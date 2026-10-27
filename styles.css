@@ -1,21 +1,44 @@
 /* Infinis World's Pictures: landing page */
 
+/* Self-hosted latin subsets (Cinzel is variable, so 500 and 600 share one file). */
+@font-face {
+  font-family: "Cinzel";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("assets/fonts/cinzel-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("assets/fonts/manrope-latin.woff2") format("woff2");
+}
+
 :root {
   --bg: #0A1114;
   --surface: #111B1F;
+  --surface-sunk: #0D161A;
   --border: #22313A;
   --heading: #F4EFE6;
   --text: #ECE6DB;
   --muted: #A3ADB1;
   --gold: #D8B878;
   --gold-hi: #F1D9A4;
+  --gold-tint: rgba(216, 184, 120, .09);
+  --gold-line: rgba(216, 184, 120, .5);
+  --line-soft: rgba(244, 239, 230, .18);
+  --line-strong: rgba(244, 239, 230, .38);
+  --scrim: rgba(10, 17, 20, .62);
 
   --serif: "Cinzel", "Times New Roman", serif;
   --sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --radius: 18px;
   --gutter: clamp(16px, 4vw, 48px);
-  --spring: cubic-bezier(.34, 1.56, .64, 1);
+  /* a small overshoot, reserved for things you press */
+  --spring: cubic-bezier(.34, 1.3, .64, 1);
   --ease-out: cubic-bezier(.22, 1, .36, 1);
 
   color-scheme: dark;
@@ -26,7 +49,10 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  scrollbar-color: var(--border) var(--bg);
 }
+
+::selection { background: var(--gold); color: var(--bg); }
 
 body {
   margin: 0;
@@ -113,7 +139,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-gold {
   background: var(--gold);
   color: var(--bg);
-  box-shadow: 0 6px 0 rgba(0, 0, 0, .28), 0 10px 28px -10px rgba(216, 184, 120, .6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .25), 0 12px 24px -12px rgba(0, 0, 0, .8);
 }
 .btn-gold::after {
   content: "";
@@ -125,15 +151,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-gold:hover {
   background: var(--gold-hi);
   transform: translateY(-3px);
-  box-shadow: 0 9px 0 rgba(0, 0, 0, .28), 0 16px 36px -10px rgba(241, 217, 164, .7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .25), 0 20px 32px -14px rgba(0, 0, 0, .85);
 }
 .btn-gold:hover::after {
   translate: 130% 0;
   transition: translate .75s var(--ease-out);
 }
 .btn-gold:active {
-  transform: translateY(4px) scale(.97);
-  box-shadow: 0 0 0 rgba(0, 0, 0, .28), 0 4px 14px -8px rgba(216, 184, 120, .5);
+  transform: translateY(2px) scale(.97);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 10px -6px rgba(0, 0, 0, .7);
   filter: brightness(.94);
   transition-duration: .08s;
 }
@@ -141,7 +167,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-outline {
   background: transparent;
   color: var(--heading);
-  border-color: rgba(244, 239, 230, .38);
+  border-color: var(--line-strong);
 }
 .btn-outline:hover { border-color: var(--gold); color: var(--gold-hi); }
 .btn-outline:active { transform: scale(.95); transition-duration: .08s; }
@@ -174,7 +200,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 14px; font-weight: 500; letter-spacing: .04em;
   text-decoration: none;
   color: var(--text);
-  transition: color .2s ease, transform .5s var(--spring);
+  transition: color .2s ease, transform .3s var(--ease-out);
 }
 .nav a:hover { color: var(--gold-hi); }
 .nav a:active { transform: scale(.95); transition-duration: .08s; }
@@ -249,7 +275,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 .hero.is-offscreen .track,
-.hero.is-offscreen .scroll-cue { animation-play-state: paused; }
+.hero.is-offscreen .scroll-cue,
+.band.is-offscreen .band-track { animation-play-state: paused; }
 
 @media (max-width: 1024px) {
   .col:nth-child(5) { display: none; }
@@ -344,18 +371,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .section { padding-block: clamp(80px, 11vw, 150px); }
 
 .section-head { text-align: center; margin-bottom: clamp(40px, 6vw, 64px); }
-.label {
-  font-size: 12.5px; font-weight: 600;
-  letter-spacing: .32em;
-  text-transform: uppercase;
-  color: var(--gold);
-  padding-left: .32em;
-}
 .section-head h2,
 .contact h2 {
-  margin-top: 14px;
   font-size: clamp(30px, 5.2vw, 56px);
   letter-spacing: .01em;
+  text-wrap: balance;
 }
 
 /* ---------- Service cards ---------- */
@@ -380,13 +400,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   text-decoration: none;
   color: var(--text);
   -webkit-tap-highlight-color: transparent;
-  transition: transform .55s var(--spring), border-color .3s ease, box-shadow .4s ease;
+  transition: transform .5s var(--ease-out), border-color .3s ease, box-shadow .4s ease;
 }
 .card-media {
   position: relative;
   height: 380px;
   overflow: clip;
-  background: #0D161A;
+  background: var(--surface-sunk);
 }
 .card-media img {
   width: 100%; height: 100%;
@@ -466,6 +486,8 @@ html.sheet-open { overflow: hidden; }
 .sheet-scroll {
   overflow-y: auto;
   overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
 }
 
 .sheet-close {
@@ -473,9 +495,9 @@ html.sheet-open { overflow: hidden; }
   display: grid; place-items: center;
   width: 44px; height: 44px;
   padding: 0;
-  border: 1px solid rgba(244, 239, 230, .18);
+  border: 1px solid var(--line-soft);
   border-radius: 999px;
-  background: rgba(10, 17, 20, .62);
+  background: var(--scrim);
   color: var(--heading);
   cursor: pointer;
   transition: transform .4s var(--spring), border-color .2s ease;
@@ -487,7 +509,7 @@ html.sheet-open { overflow: hidden; }
   position: relative;
   height: 160px;
   overflow: clip;
-  background: #0D161A;
+  background: var(--surface-sunk);
   border-bottom: 1px solid var(--border);
 }
 .sheet-banner img { width: 100%; height: 100%; object-fit: cover; }
@@ -495,12 +517,8 @@ html.sheet-open { overflow: hidden; }
 .sheet-banner.is-tall { height: auto; aspect-ratio: 1179 / 1038; max-height: 46svh; }
 .sheet-banner.is-tall img { object-position: 50% 30%; }
 
-.sheet-body { padding: 22px 24px 24px; }
-.sheet-body .label { padding-left: 0; }
-.sheet-body h2 {
-  margin-top: 10px;
-  font-size: clamp(24px, 6vw, 30px);
-}
+.sheet-body { padding: 24px 24px 24px; }
+.sheet-body h2 { font-size: clamp(24px, 6vw, 30px); }
 .sheet-intro { margin-top: 8px; color: var(--muted); font-size: 15px; }
 
 .choices {
@@ -530,10 +548,10 @@ html.sheet-open { overflow: hidden; }
 }
 .choice b { font-size: 14.5px; font-weight: 600; color: var(--heading); line-height: 1.2; }
 .choice small { font: 600 15px/1 var(--serif); color: var(--gold); }
-.choice:hover span { border-color: rgba(216, 184, 120, .5); }
+.choice:hover span { border-color: var(--gold-line); }
 .choice input:checked + span {
   border-color: var(--gold);
-  background: rgba(216, 184, 120, .09);
+  background: var(--gold-tint);
 }
 .choice input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
 .choice:active span { transform: scale(.96); transition-duration: .08s; }
@@ -713,7 +731,7 @@ html.sheet-open { overflow: hidden; }
   font-size: 15px; font-weight: 500;
   text-decoration: none;
   color: var(--text);
-  transition: border-color .25s ease, color .25s ease, transform .5s var(--spring);
+  transition: border-color .25s ease, color .25s ease, transform .3s var(--ease-out);
 }
 .pill .icon { width: 18px; height: 18px; color: var(--gold); }
 .pill:hover { border-color: var(--gold); color: var(--gold-hi); }
@@ -802,7 +820,7 @@ html.sheet-open { overflow: hidden; }
     opacity .9s var(--ease-out),
     translate .9s var(--ease-out),
     scale .9s var(--ease-out),
-    transform .55s var(--spring),
+    transform .5s var(--ease-out),
     border-color .3s ease,
     box-shadow .4s ease;
 }
@@ -814,17 +832,23 @@ html.sheet-open { overflow: hidden; }
 
 /* ---------- Reduced motion ---------- */
 
+/* No travel, loops or parallax; state changes stay, as short fades. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation: none !important;
-    transition-duration: .01ms !important;
     transition-delay: 0s !important;
+  }
+  .btn, .card, .nav a, .pill, .sheet-close, .choice span, .card-media img, .scroll-cue .icon {
+    transform: none !important;
+    scale: none !important;
   }
   .js .hero .seq,
   .no-sda .rise, .no-sda .card, .no-sda .band-inner {
     opacity: 1 !important; translate: none !important; scale: none !important;
   }
+  .sheet[open], .sheet[open]::backdrop, .pack { animation: fade-in .2s ease !important; }
+  .btn-gold::after { display: none; }
   .logo-video { display: none; }
   .logo-poster { display: block; }
   .progress { display: none; }
