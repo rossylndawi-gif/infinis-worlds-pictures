@@ -1,0 +1,7 @@
+# original, unprocessed assets
+_source/
+# local Claude Code settings
+.claude/
+# unused on the page (save-the-date poster with family names) and build metadata
+assets/photos/wedding-05*
+assets/photos/meta.json
